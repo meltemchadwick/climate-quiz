@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Climate Change Foundations Quiz</title>
+  <style>
+    :root {
+      --bg: #f5f7f4;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #5f6c7b;
+      --accent: #2f6f4e;
+      --accent-dark: #24553c;
+      --border: #d7ded8;
+      --correct: #1f7a4d;
+      --incorrect: #b42318;
+      --soft-correct: #e8f5ee;
+      --soft-incorrect: #fdecea;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: linear-gradient(135deg, #234f38, #3f8b62);
+      color: white;
+      padding: 42px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+    }
+
+    header p {
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      opacity: 0.94;
+    }
+
+    main {
+      max-width: 920px;
+      margin: 30px auto;
+      padding: 0 18px 40px;
+    }
+
+    .intro,
+    .question-card,
+    .result-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+    }
+
+    .intro {
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .intro p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .question-card {
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    .question-title {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .question-number {
+      flex: 0 0 auto;
+      background: var(--accent);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .question-text {
+      font-size: 1.04rem;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    label.answer {
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      cursor: pointer;
+      background: #fff;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    label.answer:hover {
+      border-color: var(--accent);
+      background: #f6fbf8;
+    }
+
+    label.answer input {
+      margin-right: 10px;
+      transform: translateY(1px);
+    }
+
+    .feedback {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      display: none;
+      font-size: 0.95rem;
+    }
+
+    .feedback.correct {
+      display: block;
+      color: var(--correct);
+      background: var(--soft-correct);
+      border: 1px solid #b8e0c9;
+    }
+
+    .feedback.incorrect {
+      display: block;
+      color: var(--incorrect);
+      background: var(--soft-incorrect);
+      border: 1px solid #f2b8b5;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 26px 0;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .secondary {
+      background: #e5ebe6;
+      color: #223229;
+    }
+
+    .secondary:hover {
+      background: #d7e0d9;
+    }
+
+    .result-card {
+      display: none;
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .result-card.show {
+      display: block;
+    }
+
+    .score {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0 0 8px 0;
+      color: var(--accent-dark);
+    }
+
+    .result-message {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .warning {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #fff7e6;
+      border: 1px solid #f3d28b;
+      color: #6b4e00;
+    }
+
+    .warning.show {
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .question-title {
+        align-items: flex-start;
+      }
+
+      .question-card {
+        padding: 18px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Climate Change Foundations Quiz</h1>
+    <p>Answer 10 questions on core climate-change concepts. Submit the quiz to see your score and review the correct answers.</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>
+        This quiz checks basic understanding of climate science, greenhouse gases, mitigation, adaptation,
+        physical risk, transition risk, and the role of policy. Choose one answer for each question.
+      </p>
+    </section>
+
+    <form id="quizForm"></form>
+
+    <div class="actions">
+      <button type="button" class="primary" onclick="submitQuiz()">Submit quiz</button>
+      <button type="button" class="secondary" onclick="resetQuiz()">Reset</button>
+    </div>
+
+    <div id="warning" class="warning">
+      Please answer all 10 questions before submitting.
+    </div>
+
+    <section id="result" class="result-card" aria-live="polite">
+      <p id="score" class="score"></p>
+      <p id="resultMessage" class="result-message"></p>
+    </section>
+  </main>
+
+  <footer>
+    Climate Change Foundations Quiz
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the greenhouse effect?",
+        answers: [
+          "The reflection of all sunlight back into space",
+          "The trapping of heat in the atmosphere by gases such as carbon dioxide and methane",
+          "The cooling of Earth caused by volcanic aerosols",
+          "The seasonal change in global temperature"
+        ],
+        correct: 1,
+        explanation: "The greenhouse effect occurs when greenhouse gases absorb and re-emit heat, warming the lower atmosphere and Earth’s surface."
+      },
+      {
+        question: "Which gas is the largest contributor to long-term human-caused warming?",
+        answers: [
+          "Oxygen",
+          "Nitrogen",
+          "Carbon dioxide",
+          "Argon"
+        ],
+        correct: 2,
+        explanation: "Carbon dioxide is the largest contributor to long-term anthropogenic warming because of its volume and persistence in the atmosphere."
+      },
+      {
+        question: "What does climate mitigation mean?",
+        answers: [
+          "Reducing greenhouse gas emissions or increasing carbon sinks",
+          "Adjusting to climate impacts after they occur",
+          "Measuring daily weather changes",
+          "Compensating households after natural disasters"
+        ],
+        correct: 0,
+        explanation: "Mitigation refers to actions that reduce emissions or remove greenhouse gases from the atmosphere."
+      },
+      {
+        question: "What does climate adaptation mean?",
+        answers: [
+          "Increasing fossil fuel use to support growth",
+          "Adjusting systems and behaviour to reduce harm from climate impacts",
+          "Replacing climate models with weather forecasts",
+          "Eliminating all climate risk immediately"
+        ],
+        correct: 1,
+        explanation: "Adaptation means adjusting infrastructure, institutions, behaviour, and planning to reduce vulnerability to climate impacts."
+      },
+      {
+        question: "Which example is a physical climate risk?",
+        answers: [
+          "A carbon tax increasing firms’ costs",
+          "A sudden fall in demand for coal assets",
+          "Flood damage to homes, roads, and factories",
+          "A new disclosure rule for banks"
+        ],
+        correct: 2,
+        explanation: "Physical risks arise from climate-related hazards such as floods, storms, droughts, heatwaves, and sea-level rise."
+      },
+      {
+        question: "Which example is a transition risk?",
+        answers: [
+          "A drought reducing agricultural output",
+          "A cyclone damaging electricity infrastructure",
+          "A new emissions regulation reducing the value of high-carbon assets",
+          "Sea-level rise affecting coastal property"
+        ],
+        correct: 2,
+        explanation: "Transition risks arise from policy, technology, market, and behavioural changes during the shift toward a lower-carbon economy."
+      },
+      {
+        question: "What is meant by net zero emissions?",
+        answers: [
+          "No emissions from any source anywhere",
+          "Emissions are balanced by removals over a given period",
+          "Carbon dioxide is replaced by methane",
+          "Only emissions from transport are reduced"
+        ],
+        correct: 1,
+        explanation: "Net zero means remaining emissions are balanced by removals, so the net addition to the atmosphere is zero."
+      },
+      {
+        question: "Why is methane important for climate change?",
+        answers: [
+          "It is not a greenhouse gas",
+          "It cools the atmosphere directly",
+          "It is a potent greenhouse gas with a stronger short-term warming effect than carbon dioxide",
+          "It only exists in laboratories"
+        ],
+        correct: 2,
+        explanation: "Methane is a potent greenhouse gas. It has a shorter atmospheric lifetime than carbon dioxide but a stronger warming effect over shorter horizons."
+      },
+      {
+        question: "What does climate vulnerability usually refer to?",
+        answers: [
+          "The degree to which people, systems, or economies are exposed and sensitive to climate hazards",
+          "The amount of sunlight reaching the Earth",
+          "The number of climate conferences held each year",
+          "The daily change in exchange rates"
+        ],
+        correct: 0,
+        explanation: "Vulnerability reflects exposure, sensitivity, and adaptive capacity. Poorer households and weaker infrastructure often face higher vulnerability."
+      },
+      {
+        question: "Why do central banks and financial supervisors pay attention to climate change?",
+        answers: [
+          "Because climate risks can affect inflation, output, financial stability, and the balance sheets of firms and banks",
+          "Because they directly control global temperature",
+          "Because weather forecasting is their main mandate",
+          "Because climate change has no economic consequences"
+        ],
+        correct: 0,
+        explanation: "Climate change can affect macroeconomic conditions and financial stability through physical damages, transition policies, asset repricing, and credit risk."
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+
+    function renderQuiz() {
+      form.innerHTML = "";
+      questions.forEach((item, index) => {
+        const card = document.createElement("section");
+        card.className = "question-card";
+        card.id = `question-${index}`;
+
+        const answersHtml = item.answers.map((answer, answerIndex) => `
+          <label class="answer" id="label-${index}-${answerIndex}">
+            <input type="radio" name="q${index}" value="${answerIndex}">
+            ${answer}
+          </label>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="question-title">
+            <span class="question-number">${index + 1}</span>
+            <div class="question-text">${item.question}</div>
+          </div>
+          <div class="answers">${answersHtml}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+
+        form.appendChild(card);
+      });
+    }
+
+    function submitQuiz() {
+      const warning = document.getElementById("warning");
+      const result = document.getElementById("result");
+      const scoreEl = document.getElementById("score");
+      const resultMessage = document.getElementById("resultMessage");
+
+      let score = 0;
+      let answered = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const feedback = document.getElementById(`feedback-${index}`);
+
+        for (let i = 0; i < item.answers.length; i++) {
+          const label = document.getElementById(`label-${index}-${i}`);
+          label.style.borderColor = "var(--border)";
+          label.style.background = "#fff";
+        }
+
+        feedback.className = "feedback";
+        feedback.textContent = "";
+
+        if (selected) {
+          answered++;
+        }
+      });
+
+      if (answered < questions.length) {
+        warning.classList.add("show");
+        result.classList.remove("show");
+        return;
+      }
+
+      warning.classList.remove("show");
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const selectedValue = Number(selected.value);
+        const feedback = document.getElementById(`feedback-${index}`);
+
+        const correctLabel = document.getElementById(`label-${index}-${item.correct}`);
+        correctLabel.style.borderColor = "var(--correct)";
+        correctLabel.style.background = "var(--soft-correct)";
+
+        if (selectedValue === item.correct) {
+          score++;
+          feedback.className = "feedback correct";
+          feedback.textContent = `Correct. ${item.explanation}`;
+        } else {
+          const selectedLabel = document.getElementById(`label-${index}-${selectedValue}`);
+          selectedLabel.style.borderColor = "var(--incorrect)";
+          selectedLabel.style.background = "var(--soft-incorrect)";
+          feedback.className = "feedback incorrect";
+          feedback.textContent = `Incorrect. Correct answer: ${item.answers[item.correct]}. ${item.explanation}`;
+        }
+      });
+
+      const percentage = Math.round((score / questions.length) * 100);
+      scoreEl.textContent = `Your score: ${score} / ${questions.length} (${percentage}%)`;
+
+      if (score >= 8) {
+        resultMessage.textContent = "Good understanding of the foundational concepts. Review any incorrect answers to strengthen the details.";
+      } else if (score >= 5) {
+        resultMessage.textContent = "You have a partial understanding. Review the explanations and retake the quiz.";
+      } else {
+        resultMessage.textContent = "You should revisit the basic concepts before moving to climate risk, policy, and financial-sector applications.";
+      }
+
+      result.classList.add("show");
+      result.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetQuiz() {
+      form.reset();
+      document.getElementById("warning").classList.remove("show");
+      document.getElementById("result").classList.remove("show");
+
+      questions.forEach((item, index) => {
+        const feedback = document.getElementById(`feedback-${index}`);
+        feedback.className = "feedback";
+        feedback.textContent = "";
+
+        for (let i = 0; i < item.answers.length; i++) {
+          const label = document.getElementById(`label-${index}-${i}`);
+          label.style.borderColor = "var(--border)";
+          label.style.background = "#fff";
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
