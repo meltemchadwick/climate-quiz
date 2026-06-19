@@ -6,22 +6,22 @@
   <title>Climate Change Foundations Quiz</title>
   <style>
     :root {
-      --bg: #f5f7f4;
+      --bg: #f4f6f9;
       --card: #ffffff;
-      --text: #1f2933;
-      --muted: #5f6c7b;
-      --accent: #2f6f4e;
-      --accent-dark: #24553c;
-      --border: #d7ded8;
-      --correct: #1f7a4d;
-      --incorrect: #b42318;
-      --soft-correct: #e8f5ee;
-      --soft-incorrect: #fdecea;
+      --text: #1f2937;
+      --muted: #5b6472;
+      --accent: #0b1f3a;
+      --accent-dark: #061526;
+      --accent-mid: #17365d;
+      --border: #d5dbe5;
+      --correct: #176b3a;
+      --incorrect: #a51d1d;
+      --soft-correct: #e8f4ed;
+      --soft-incorrect: #fdeaea;
+      --soft-navy: #eef3f9;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -32,9 +32,9 @@
     }
 
     header {
-      background: linear-gradient(135deg, #234f38, #3f8b62);
+      background: linear-gradient(135deg, #061526, #17365d);
       color: white;
-      padding: 42px 20px;
+      padding: 44px 20px;
       text-align: center;
     }
 
@@ -45,25 +45,23 @@
     }
 
     header p {
-      max-width: 780px;
+      max-width: 800px;
       margin: 0 auto;
       font-size: 1.05rem;
       opacity: 0.94;
     }
 
     main {
-      max-width: 920px;
+      max-width: 940px;
       margin: 30px auto;
-      padding: 0 18px 40px;
+      padding: 0 18px 42px;
     }
 
-    .intro,
-    .question-card,
-    .result-card {
+    .intro, .question-card, .result-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
-      box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+      box-shadow: 0 8px 22px rgba(31, 41, 55, 0.06);
     }
 
     .intro {
@@ -125,8 +123,8 @@
     }
 
     label.answer:hover {
-      border-color: var(--accent);
-      background: #f6fbf8;
+      border-color: var(--accent-mid);
+      background: var(--soft-navy);
     }
 
     label.answer input {
@@ -146,14 +144,14 @@
       display: block;
       color: var(--correct);
       background: var(--soft-correct);
-      border: 1px solid #b8e0c9;
+      border: 1px solid #b7dcc7;
     }
 
     .feedback.incorrect {
       display: block;
       color: var(--incorrect);
       background: var(--soft-incorrect);
-      border: 1px solid #f2b8b5;
+      border: 1px solid #f0b6b6;
     }
 
     .actions {
@@ -177,18 +175,14 @@
       color: white;
     }
 
-    .primary:hover {
-      background: var(--accent-dark);
-    }
+    .primary:hover { background: var(--accent-dark); }
 
     .secondary {
-      background: #e5ebe6;
-      color: #223229;
+      background: #e3e8ef;
+      color: #172033;
     }
 
-    .secondary:hover {
-      background: #d7e0d9;
-    }
+    .secondary:hover { background: #d6dde8; }
 
     .result-card {
       display: none;
@@ -196,15 +190,13 @@
       margin-top: 20px;
     }
 
-    .result-card.show {
-      display: block;
-    }
+    .result-card.show { display: block; }
 
     .score {
       font-size: 1.6rem;
       font-weight: 800;
       margin: 0 0 8px 0;
-      color: var(--accent-dark);
+      color: var(--accent);
     }
 
     .result-message {
@@ -222,9 +214,7 @@
       color: #6b4e00;
     }
 
-    .warning.show {
-      display: block;
-    }
+    .warning.show { display: block; }
 
     footer {
       text-align: center;
@@ -234,31 +224,22 @@
     }
 
     @media (max-width: 600px) {
-      .question-title {
-        align-items: flex-start;
-      }
-
-      .question-card {
-        padding: 18px;
-      }
-
-      button {
-        width: 100%;
-      }
+      .question-card { padding: 18px; }
+      button { width: 100%; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Climate Change Foundations Quiz</h1>
-    <p>Answer 10 questions on core climate-change concepts. Submit the quiz to see your score and review the correct answers.</p>
+    <p>Answer 10 questions on foundational climate concepts. The questions are designed to test distinctions, not only definitions.</p>
   </header>
 
   <main>
     <section class="intro">
       <p>
-        This quiz checks basic understanding of climate science, greenhouse gases, mitigation, adaptation,
-        physical risk, transition risk, and the role of policy. Choose one answer for each question.
+        This quiz covers greenhouse gases, warming metrics, mitigation, adaptation, physical risks, transition risks,
+        net zero, tipping points, uncertainty, and central-bank relevance. Choose one answer for each question.
       </p>
     </section>
 
@@ -279,121 +260,69 @@
     </section>
   </main>
 
-  <footer>
-    Climate Change Foundations Quiz
-  </footer>
+  <footer>Climate Change Foundations Quiz</footer>
 
   <script>
     const questions = [
       {
-        question: "What is the greenhouse effect?",
-        answers: [
-          "The reflection of all sunlight back into space",
-          "The trapping of heat in the atmosphere by gases such as carbon dioxide and methane",
-          "The cooling of Earth caused by volcanic aerosols",
-          "The seasonal change in global temperature"
-        ],
+        question: "A country reduces domestic coal use but imports more carbon-intensive manufactured goods. Which concept best captures the measurement problem this creates?",
+        answers: ["Radiative forcing", "Consumption-based emissions", "Climate sensitivity", "Albedo feedback"],
         correct: 1,
-        explanation: "The greenhouse effect occurs when greenhouse gases absorb and re-emit heat, warming the lower atmosphere and Earth’s surface."
+        explanation: "Territorial emissions measure what is produced within borders. Consumption-based emissions also account for emissions embodied in imports."
       },
       {
-        question: "Which gas is the largest contributor to long-term human-caused warming?",
-        answers: [
-          "Oxygen",
-          "Nitrogen",
-          "Carbon dioxide",
-          "Argon"
-        ],
-        correct: 2,
-        explanation: "Carbon dioxide is the largest contributor to long-term anthropogenic warming because of its volume and persistence in the atmosphere."
-      },
-      {
-        question: "What does climate mitigation mean?",
-        answers: [
-          "Reducing greenhouse gas emissions or increasing carbon sinks",
-          "Adjusting to climate impacts after they occur",
-          "Measuring daily weather changes",
-          "Compensating households after natural disasters"
-        ],
-        correct: 0,
-        explanation: "Mitigation refers to actions that reduce emissions or remove greenhouse gases from the atmosphere."
-      },
-      {
-        question: "What does climate adaptation mean?",
-        answers: [
-          "Increasing fossil fuel use to support growth",
-          "Adjusting systems and behaviour to reduce harm from climate impacts",
-          "Replacing climate models with weather forecasts",
-          "Eliminating all climate risk immediately"
-        ],
+        question: "Why does carbon dioxide matter for long-term warming even when annual emissions stop rising?",
+        answers: ["Because carbon dioxide is the only greenhouse gas", "Because a substantial share of emitted carbon dioxide remains in the atmosphere for a long time", "Because carbon dioxide has a higher short-term warming effect than methane molecule for molecule", "Because carbon dioxide directly destroys the ozone layer"],
         correct: 1,
-        explanation: "Adaptation means adjusting infrastructure, institutions, behaviour, and planning to reduce vulnerability to climate impacts."
+        explanation: "CO2 accumulates. Stable annual emissions do not imply stable atmospheric concentrations, unless emissions are balanced by removals."
       },
       {
-        question: "Which example is a physical climate risk?",
-        answers: [
-          "A carbon tax increasing firms’ costs",
-          "A sudden fall in demand for coal assets",
-          "Flood damage to homes, roads, and factories",
-          "A new disclosure rule for banks"
-        ],
-        correct: 2,
-        explanation: "Physical risks arise from climate-related hazards such as floods, storms, droughts, heatwaves, and sea-level rise."
-      },
-      {
-        question: "Which example is a transition risk?",
-        answers: [
-          "A drought reducing agricultural output",
-          "A cyclone damaging electricity infrastructure",
-          "A new emissions regulation reducing the value of high-carbon assets",
-          "Sea-level rise affecting coastal property"
-        ],
-        correct: 2,
-        explanation: "Transition risks arise from policy, technology, market, and behavioural changes during the shift toward a lower-carbon economy."
-      },
-      {
-        question: "What is meant by net zero emissions?",
-        answers: [
-          "No emissions from any source anywhere",
-          "Emissions are balanced by removals over a given period",
-          "Carbon dioxide is replaced by methane",
-          "Only emissions from transport are reduced"
-        ],
+        question: "Which statement best distinguishes weather from climate?",
+        answers: ["Weather is local and climate is always global", "Weather is short-term atmospheric conditions, while climate refers to statistical patterns over longer periods", "Weather is measured by satellites, while climate is measured only by thermometers", "Weather includes temperature, while climate excludes temperature"],
         correct: 1,
-        explanation: "Net zero means remaining emissions are balanced by removals, so the net addition to the atmosphere is zero."
+        explanation: "Weather describes short-term conditions. Climate describes distributions, averages, extremes, and variability over longer periods."
       },
       {
-        question: "Why is methane important for climate change?",
-        answers: [
-          "It is not a greenhouse gas",
-          "It cools the atmosphere directly",
-          "It is a potent greenhouse gas with a stronger short-term warming effect than carbon dioxide",
-          "It only exists in laboratories"
-        ],
+        question: "A government builds flood barriers around a coastal city but does not reduce emissions. How should this policy mainly be classified?",
+        answers: ["Mitigation, because it lowers greenhouse gas concentrations", "Adaptation, because it reduces expected damage from climate hazards", "Geoengineering, because it changes solar radiation", "Carbon removal, because it increases sinks"],
+        correct: 1,
+        explanation: "Flood barriers are adaptation. They reduce vulnerability to physical hazards but do not directly reduce emissions."
+      },
+      {
+        question: "Which scenario is most clearly a transition risk for a bank?",
+        answers: ["A heatwave lowers labour productivity in construction", "A flood damages collateral in a mortgage portfolio", "A sudden tightening of carbon policy reduces the profitability of high-emission borrowers", "A drought lowers hydropower generation"],
         correct: 2,
-        explanation: "Methane is a potent greenhouse gas. It has a shorter atmospheric lifetime than carbon dioxide but a stronger warming effect over shorter horizons."
+        explanation: "Transition risk arises from policy, technology, market, or behavioural changes during decarbonisation. The borrower effect can become credit risk."
       },
       {
-        question: "What does climate vulnerability usually refer to?",
-        answers: [
-          "The degree to which people, systems, or economies are exposed and sensitive to climate hazards",
-          "The amount of sunlight reaching the Earth",
-          "The number of climate conferences held each year",
-          "The daily change in exchange rates"
-        ],
-        correct: 0,
-        explanation: "Vulnerability reflects exposure, sensitivity, and adaptive capacity. Poorer households and weaker infrastructure often face higher vulnerability."
+        question: "Which statement about net zero is most accurate?",
+        answers: ["Net zero means gross emissions are zero in every sector", "Net zero means remaining emissions are balanced by removals, but the credibility depends on the scale, permanence, and verification of removals", "Net zero means carbon dioxide emissions fall by 50 percent", "Net zero only applies to electricity generation"],
+        correct: 1,
+        explanation: "Net zero permits residual emissions only if they are balanced by credible removals. Permanence and measurement matter."
       },
       {
-        question: "Why do central banks and financial supervisors pay attention to climate change?",
-        answers: [
-          "Because climate risks can affect inflation, output, financial stability, and the balance sheets of firms and banks",
-          "Because they directly control global temperature",
-          "Because weather forecasting is their main mandate",
-          "Because climate change has no economic consequences"
-        ],
+        question: "Why can two countries with the same temperature shock experience different economic damage?",
+        answers: ["Temperature shocks have no measurable economic effects", "Damage depends only on latitude", "Exposure, sensitivity, infrastructure, income, institutions, and adaptive capacity differ", "All countries face identical climate vulnerability"],
+        correct: 2,
+        explanation: "The same hazard can produce different losses because vulnerability and adaptive capacity differ across economies and communities."
+      },
+      {
+        question: "Which statement best explains why methane reduction can affect near-term warming?",
+        answers: ["Methane is long-lived like carbon dioxide and remains for centuries", "Methane is a potent greenhouse gas with a shorter atmospheric lifetime, so reductions can influence warming over shorter horizons", "Methane is not linked to agriculture or energy", "Methane only affects local air temperature, not global warming"],
+        correct: 1,
+        explanation: "Methane has strong warming potential over shorter horizons and a shorter lifetime than CO2. Reducing methane can therefore matter for near-term warming."
+      },
+      {
+        question: "What is the main analytical problem with relying only on historical climate data to assess future financial risk?",
+        answers: ["Historical data are always incorrect", "Climate risks are purely random and cannot be studied", "Future risks may be non-stationary because hazards, exposure, policy, technology, and behaviour can change", "Financial risk has no connection to climate conditions"],
+        correct: 2,
+        explanation: "Climate and transition risks are not fully captured by past averages. Non-stationarity is central to forward-looking risk assessment."
+      },
+      {
+        question: "Why might climate change be relevant for monetary policy even if a central bank has no climate mandate?",
+        answers: ["Because climate change can affect inflation, output, relative prices, productivity, and financial conditions", "Because central banks can directly set global emissions", "Because climate change replaces the need for inflation forecasting", "Because climate risks only affect environmental ministries"],
         correct: 0,
-        explanation: "Climate change can affect macroeconomic conditions and financial stability through physical damages, transition policies, asset repricing, and credit risk."
+        explanation: "Physical and transition shocks can affect price stability and macro-financial conditions. That makes them relevant to core central-bank analysis."
       }
     ];
 
@@ -487,11 +416,11 @@
       scoreEl.textContent = `Your score: ${score} / ${questions.length} (${percentage}%)`;
 
       if (score >= 8) {
-        resultMessage.textContent = "Good understanding of the foundational concepts. Review any incorrect answers to strengthen the details.";
+        resultMessage.textContent = "Strong result. You understand the main distinctions and can move to applied climate-risk analysis.";
       } else if (score >= 5) {
-        resultMessage.textContent = "You have a partial understanding. Review the explanations and retake the quiz.";
+        resultMessage.textContent = "Partial result. Review the explanations carefully, especially mitigation versus adaptation and physical versus transition risk.";
       } else {
-        resultMessage.textContent = "You should revisit the basic concepts before moving to climate risk, policy, and financial-sector applications.";
+        resultMessage.textContent = "The foundational distinctions need revision before moving to climate finance, supervision, or macroeconomic applications.";
       }
 
       result.classList.add("show");
